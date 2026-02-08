@@ -1,0 +1,15 @@
+# init.sql content for /docker-entrypoint-initdb.d
+# Database "auth" and user "auth_user" are created by MySQL deployment env (MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-init
+data:
+  init.sql: |
+    USE auth;
+    CREATE TABLE user (
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        email VARCHAR(255) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL
+    );
+    INSERT INTO user (email, password) VALUES ('shreyansh13@gmail.com', 'Admin123');
